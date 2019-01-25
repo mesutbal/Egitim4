@@ -1,0 +1,3 @@
+rootProject.name = 'Egitim4'
+
+include ':app'
