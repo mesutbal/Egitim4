@@ -1,48 +1,43 @@
 import React, { Component } from 'react';
-import { View, Button, Alert } from 'react-native';
-import { Header } from './src/components/ortak/Header';
-import LoginForm from './src/components/LoginForm';
+//import firebase from 'firebase';
+import firebase from '@firebase/app';
+
+import { Router, Scene } from 'react-native-router-flux';
+import LoginScreen from './src/screens/LoginScreen';
+import MainScreen from './src/screens/MainScreen';
+
 
 export default class App extends Component {
-  render() {
-    /*return (
-      <View style={{ flex: 1 }}>
-      <View style={{ flex: 16, flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch' }}>
-        <View style={{ width: 100, height: 50, backgroundColor: 'yellow' }} />
-        <View style={{ flex: 1.5, backgroundColor: 'red' }} />
-        <View style={{ flex: 8.569, backgroundColor: 'purple' }} />
-        <View style={{ height: 50, backgroundColor: 'orange' }} />
-      </View>
-      <View style={{ flex: 8, flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch' }}>
-        <View style={{ width: 100, height: 50, backgroundColor: 'yellow' }} />
-        <View style={{ flex: 1.5, backgroundColor: 'red' }} />
-        <View style={{ flex: 8.569, backgroundColor: 'purple' }} />
-        <View style={{ height: 50, backgroundColor: 'orange' }} />
-      </View>
-      </View>
-    );*/
-    /*return (
-    <View style={{ flex: 1, padding: 20, backgroundColor: 'yellow' }}>
-      <Button title="Alert Deneme 1" onPress={() => { Alert.alert('React Native', 'Merhaba Dünya !'); }} />
-      <Button 
-        title="Alert Deneme 2" 
-        onPress={() => 
-          { 
-            Alert.alert(
-                'React Native', 
-                'Merhaba Dünya !',
-                [
-                  { text: 'Tamam', onPress: () => { Alert.alert('react native', 'tamam'); } },
-                  { text: 'İptal', onPress: () => { Alert.alert('react native', 'iptal'); } }
-                ]); 
-          }} 
-        />
-    </View>);*/
 
-    return (
-    <View>
-      <Header>Kullanıcı Girişi</Header>
-      <LoginForm />
-    </View>);
+  
+  componentWillMount() {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyBOMQOBRRLQjO_T_JKyepSrX2XQ0d6iF34',
+      authDomain: 'egitim2-3dbcd.firebaseapp.com',
+      databaseURL: 'https://egitim2-3dbcd.firebaseio.com',
+      projectId: 'egitim2-3dbcd',
+      storageBucket: 'egitim2-3dbcd.appspot.com',
+      messagingSenderId: '61754865901'
+    });
+  }
+
+  render() {
+    return (<Router>
+      <Scene key="root">
+        <Scene 
+          key="login"
+          component={LoginScreen}
+          title="Kullanıcı Girişi"
+          initial
+          hideNavBar
+        />
+        <Scene
+         type="reset" 
+          key="home"
+          component={MainScreen}
+          title="React Native"
+        />
+      </Scene>
+    </Router>);
   }
 }
