@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
-import firebase from '@firebase/app';
-import '@firebase/auth';
+//import firebase from '@firebase/app';
+//import '@firebase/auth';
+import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux'; 
 import { Card, CardSection } from './ortak';
 import Input from './Input';
@@ -17,7 +18,10 @@ class LoginForm extends Component {
         .then(this.onGirisBasarili.bind(this))
         .catch(() => {
             firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(this.onGirisBasarili.bind(this))
+            .then(() => {
+                Alert.alert('React Native', 'Hayırlı olsun ! Hoş geldiniz !');
+                this.onGirisBasarili.bind(this);
+            })
             .catch(this.onGirisHatali.bind(this));
         });
     }
